@@ -1,6 +1,19 @@
 from difflib import get_close_matches
 import json
 
+# adds color to the output
+class color:
+    PURPLE = '\033[95m'
+    CYAN = '\033[96m'
+    DARKCYAN = '\033[36m'
+    BLUE = '\033[94m'
+    GREEN = '\033[92m'
+    YELLOW = '\033[93m'
+    RED = '\033[91m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+    END = '\033[0m'
+
 
 def translate(word):
     global data
@@ -18,7 +31,7 @@ def translate(word):
 data = json.load(open('words.json', encoding='utf-8'))
 
 print('\n')
-print('=========== Hi ===========')
+print(color.PURPLE + '=========== Hi ===========' + color.END)
 print('\n')
 
 word = input('search a word : ')
@@ -27,7 +40,7 @@ alternate = get_close_matches(word, data.keys())
 if word in data:
     translate(word)
 elif len(alternate) > 0:
-    check = input("Did you mean %s ? y/n : " % alternate[0])
+    check = input(color.PURPLE + "Did you mean %s ? y/n : " % alternate[0] + color.END)
     if check in ['Y', 'y']:
         translate(alternate[0])
     elif check in ['N', 'n']:
@@ -36,13 +49,13 @@ elif len(alternate) > 0:
         print('--- wrong input ---')
 else:
     print('--- word not found ---')
-    check = input('Should I add this word?  y/n : ')
+    check = input(color.PURPLE + 'Should I add this word?  y/n : ' + color.END)
     examples = []
     example = ''
     if check in ['Y', 'y']:
         meaning = input('Translate : ')
         while (example != 'n'):
-            example = input('write an example (or press n) : ')
+            example = input(color.PURPLE + 'write an example (or press n) : ' + color.END)
             if (example != 'n'):
                 examples.append(example)
         new_word = {
