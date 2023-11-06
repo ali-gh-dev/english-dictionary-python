@@ -1,0 +1,15 @@
+{
+    "book": {
+        "translate": "کتاب",
+        "examples": [
+            "this is my book",
+            "where is my book ?"
+        ]
+    },
+    "developer": {
+        "translate": "توسعه دهنده",
+        "examples": [
+            "i am a developer"
+        ]
+    }
+}
