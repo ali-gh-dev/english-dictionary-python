@@ -25,5 +25,12 @@
         "examples": [
             "we will create a portion of that game"
         ]
+    },
+    "car": {
+        "translate": "\u0645\u0627\u0634\u06cc\u0646",
+        "examples": [
+            "i had an accident with my car",
+            "my car is bmw"
+        ]
     }
 }

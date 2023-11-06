@@ -2,6 +2,9 @@ from difflib import get_close_matches
 import json
 
 # adds color to the output
+data = json.load(open('words.json', encoding='utf-8'))
+
+
 class color:
     PURPLE = '\033[95m'
     CYAN = '\033[96m'
@@ -28,45 +31,52 @@ def translate(word):
         print('-' * 20)
 
 
-data = json.load(open('words.json', encoding='utf-8'))
+def start():
+    global data
+    print('\n')
+    print(color.BOLD + color.PURPLE + '=========== Hi ===========' + color.END)
+    print('\n')
 
-print('\n')
-print(color.PURPLE + '=========== Hi ===========' + color.END)
-print('\n')
+    word = input('search a word : ')
+    alternate = get_close_matches(word, data.keys())
 
-word = input('search a word : ')
-alternate = get_close_matches(word, data.keys())
-
-if word in data:
-    translate(word)
-elif len(alternate) > 0:
-    check = input(color.PURPLE + "Did you mean %s ? y/n : " % alternate[0] + color.END)
-    if check in ['Y', 'y']:
-        translate(alternate[0])
-    elif check in ['N', 'n']:
-        print('--- bye ---')
+    if word in data:
+        translate(word)
+    elif len(alternate) > 0:
+        check = input(color.PURPLE + "Did you mean %s ? y/n : " %
+                      alternate[0] + color.END)
+        if check in ['Y', 'y']:
+            translate(alternate[0])
+        elif check in ['N', 'n']:
+            print('--- bye ---')
+        else:
+            print('--- wrong input ---')
     else:
-        print('--- wrong input ---')
-else:
-    print('--- word not found ---')
-    check = input(color.PURPLE + 'Should I add this word?  y/n : ' + color.END)
-    examples = []
-    example = ''
-    if check in ['Y', 'y']:
-        meaning = input('Translate : ')
-        while (example != 'n'):
-            example = input(color.PURPLE + 'write an example (or press n) : ' + color.END)
-            if (example != 'n'):
-                examples.append(example)
-        new_word = {
-            word: {
-                "translate": meaning,
-                "examples": examples
+        print('--- not found ---')
+        check = input(
+            color.PURPLE + 'Should I add this word to dictionary?  y/n : ' + color.END)
+        examples = []
+        example = ''
+        if check in ['Y', 'y']:
+            meaning = input('Meaning : ')
+            while (example != 'n'):
+                example = input(
+                    color.PURPLE + 'write an example (or press n) : ' + color.END)
+                if (example != 'n'):
+                    examples.append(example)
+            new_word = {
+                word: {
+                    "translate": meaning,
+                    "examples": examples
+                }
             }
-        }
-        data.update(new_word)
-        with open('words.json', 'w') as f:
-            json.dump(data, f, indent=4)
-        print('--- bye ---')
-    else:
-        print('--- bye ---')
+            data.update(new_word)
+            with open('words.json', 'w') as f:
+                json.dump(data, f, indent=4)
+            print('--- bye ---')
+        else:
+            print('--- bye ---')
+
+
+if __name__ == '__main__':
+    start()
