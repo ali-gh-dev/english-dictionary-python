@@ -30,11 +30,30 @@ def translate(word):
             print('=> ', ex)
         print('-' * 20)
 
+def add(word):
+    examples = []
+    example = ''
+    meaning = input('Meaning : ')
+    while (example != 'n'):
+        example = input(f'{color.PURPLE}Example (or press n) : {color.END}')
+        if (example != 'n'):
+            examples.append(example)
+    new_word = {
+                word: {
+                    "translate": meaning,
+                    "examples": examples
+                }
+            }
+    data.update(new_word)
+    with open('words.json', 'w') as f:
+        json.dump(data, f, indent=4)
+    print('--- Bye ---')
+    
 
 def start():
     global data
     print('\n')
-    print(color.BOLD + color.PURPLE + '=========== Hi ===========' + color.END)
+    print(f'{color.BOLD}{color.PURPLE}=========== Hi ==========={color.END}')
     print('\n')
 
     word = input('search a word : ')
@@ -44,39 +63,22 @@ def start():
     if word in data:
         translate(word)
     elif len(alternate) > 0:
-        check = input(color.PURPLE + "Did you mean %s ? y/n : " %
-                      alternate[0] + color.END)
+        check = input(f"Did you mean {color.PURPLE}{alternate[0]}{color.END} ? y/n : ")
         if check in ['Y', 'y']:
             translate(alternate[0])
-        elif check in ['N', 'n']:
-            print('--- bye ---')
         else:
-            print('--- wrong input ---')
+            check = input(f"{color.PURPLE}Add this word ?  y/n : {color.END}")
+            if check in ['Y', 'y']:
+                add(word)
+            else:
+                print('--- Bye ---')
     else:
         print('--- not found ---')
-        check = input(
-            color.PURPLE + 'Should I add this word to dictionary?  y/n : ' + color.END)
-        examples = []
-        example = ''
+        check = input(f"{color.PURPLE}Add this word ?  y/n : {color.END}")
         if check in ['Y', 'y']:
-            meaning = input('Meaning : ')
-            while (example != 'n'):
-                example = input(
-                    color.PURPLE + 'write an example (or press n) : ' + color.END)
-                if (example != 'n'):
-                    examples.append(example)
-            new_word = {
-                word: {
-                    "translate": meaning,
-                    "examples": examples
-                }
-            }
-            data.update(new_word)
-            with open('words.json', 'w') as f:
-                json.dump(data, f, indent=4)
-            print('--- bye ---')
+            add(word)
         else:
-            print('--- bye ---')
+            print('--- Bye ---')
 
 
 if __name__ == '__main__':

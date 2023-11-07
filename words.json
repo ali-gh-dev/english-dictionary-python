@@ -32,5 +32,9 @@
             "i had an accident with my car",
             "my car is bmw"
         ]
+    },
+    "hello": {
+        "translate": "\u0633\u0644\u0627\u0645",
+        "examples": []
     }
 }
