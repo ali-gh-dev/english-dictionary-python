@@ -1,10 +1,10 @@
 from difflib import get_close_matches
 import json
 
-# adds color to the output
+# next line , converts json data to python dictionary
 data = json.load(open('words.json', encoding='utf-8'))
 
-
+# adds color to the output
 class color:
     PURPLE = '\033[95m'
     CYAN = '\033[96m'
@@ -38,6 +38,7 @@ def start():
     print('\n')
 
     word = input('search a word : ')
+    # with get_close_matches() , we will find closest word to the user word 
     alternate = get_close_matches(word, data.keys())
 
     if word in data:
