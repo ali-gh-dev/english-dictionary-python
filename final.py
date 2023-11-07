@@ -4,6 +4,7 @@ import json
 # next line , converts json data to python dictionary
 data = json.load(open('words.json', encoding='utf-8'))
 
+
 # adds color to the output
 class color:
     PURPLE = '\033[95m'
@@ -30,6 +31,7 @@ def translate(word):
             print('=> ', ex)
         print('-' * 20)
 
+
 def add(word):
     examples = []
     example = ''
@@ -39,16 +41,18 @@ def add(word):
         if (example != 'n'):
             examples.append(example)
     new_word = {
-                word: {
-                    "translate": meaning,
-                    "examples": examples
-                }
-            }
+        word: {
+            "translate": meaning,
+            "examples": examples
+        }
+    }
     data.update(new_word)
-    with open('words.json', 'w') as f:
-        json.dump(data, f, indent=4)
+    with open('words.json', 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=4, ensure_ascii=False)
+        # ensure_ascii=False ===> farsi characters will be shown correctly
+        # in json file and terminal
     print('--- Bye ---')
-    
+
 
 def start():
     global data
@@ -57,7 +61,7 @@ def start():
     print('\n')
 
     word = input('search a word : ')
-    # with get_close_matches() , we will find closest word to the user word 
+    # with get_close_matches() , we will find closest word to the user word
     alternate = get_close_matches(word, data.keys())
 
     if word in data:
