@@ -6,7 +6,7 @@ data = json.load(open('words.json', encoding='utf-8'))
 
 
 # adds color to the output
-class color:
+class Color:
     PURPLE = '\033[95m'
     CYAN = '\033[96m'
     DARKCYAN = '\033[36m'
@@ -36,9 +36,9 @@ def add(word):
     examples = []
     example = ''
     meaning = input('Meaning : ')
-    while (example != 'n'):
-        example = input(f'{color.PURPLE}Example (or press n) : {color.END}')
-        if (example != 'n'):
+    while example != 'n':
+        example = input(f'{Color.PURPLE}Example (or press n) : {Color.END}')
+        if example != 'n':
             examples.append(example)
     new_word = {
         word: {
@@ -57,7 +57,7 @@ def add(word):
 def start():
     global data
     print('\n')
-    print(f'{color.BOLD}{color.PURPLE}=========== Hi ==========={color.END}')
+    print(f'{Color.BOLD}{Color.PURPLE}=========== Hi ==========={Color.END}')
     print('\n')
 
     word = input('search a word : ')
@@ -67,18 +67,18 @@ def start():
     if word in data:
         translate(word)
     elif len(alternate) > 0:
-        check = input(f"Did you mean {color.PURPLE}{alternate[0]}{color.END} ? y/n : ")
+        check = input(f"Did you mean {Color.PURPLE}{alternate[0]}{Color.END} ? y/n : ")
         if check in ['Y', 'y']:
             translate(alternate[0])
         else:
-            check = input(f"{color.PURPLE}Add this word ?  y/n : {color.END}")
+            check = input(f"{Color.PURPLE}Add this word ?  y/n : {Color.END}")
             if check in ['Y', 'y']:
                 add(word)
             else:
                 print('--- Bye ---')
     else:
         print('--- not found ---')
-        check = input(f"{color.PURPLE}Add this word ?  y/n : {color.END}")
+        check = input(f"{Color.PURPLE}Add this word ?  y/n : {Color.END}")
         if check in ['Y', 'y']:
             add(word)
         else:
