@@ -1,11 +1,12 @@
 # english-dictionary-python
 
-this little program is useful for language learners
-this is a personal english dictionary
+this little program is useful for language learners , 
+this is a personal english dictionary , 
 it runs in terminal
 
 you can :
 - add new words
 - search among words that you wrote earlier
+- your words will save in json format
 
 enjoy :)
